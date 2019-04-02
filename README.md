@@ -42,7 +42,7 @@ Select your JSON file and push "Run" button.
 
 ## Limitation
 
-Supported switch footprints are Cherry MX in [kicad-footprints/Button_Switch_Keyboard.pretty](https://github.com/KiCad/kicad-footprints/tree/master/Button_Switch_Keyboard.pretty) only. Therefore, the size of switch that can be userd is limited to the following.
+Supported switch footprints are Cherry MX in [kicad-footprints/Button_Switch_Keyboard.pretty](https://github.com/KiCad/kicad-footprints/tree/master/Button_Switch_Keyboard.pretty) only. Therefore, the size of switch that can be used is limited to the following.
 
 - 1.00u (1 x 1)
 - 1.25u (1.25 x 1)
