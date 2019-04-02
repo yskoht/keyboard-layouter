@@ -16,7 +16,7 @@ I have confirmed that it works with pcbnew version (5.1.0)-1 release build on Wi
 Download [keyboard_layouter.py](https://github.com/yskoht/keyboard-layouter/blob/master/keyboard_layouter.py) and put it to the following directory:
 
 - Windows: %APPDATA%/Roaming/kicad/scripting/plugins
-- macOS: ~/Library/Application Support/kicad/scripting/plugins
+- macOS: /Applications/KiCad/kicad.app/Contents/SharedSupport/scripting/plugins
 - Linux: ~/.kicad/scripting/plugins
 
 ## Usage
