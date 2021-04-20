@@ -179,7 +179,7 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                 diode.SetOrientationDegrees(r)
 
     def __gui(self):
-        WINDOW_SIZE = (600, 270)
+        WINDOW_SIZE = (600, 350)
         MARGIN_PIX = 10
         INDENT_PIX = 20
 
