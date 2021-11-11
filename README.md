@@ -3,7 +3,7 @@
 
 [![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
-Keyboard Layouter is a plugin for [KiCad](http://kicad-pcb.org/)(pcbnew).
+Keyboard Layouter is a plugin for [KiCad](http://kicad.org/)(pcbnew).
 This plugin places switch footprints in the location specified by JSON of
 [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/).
 
