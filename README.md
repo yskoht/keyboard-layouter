@@ -7,13 +7,23 @@ Keyboard Layouter is a plugin for [KiCad](http://kicad.org/)(pcbnew).
 This plugin places switch footprints in the location specified by JSON of
 [Keyboard Layout Editor](http://www.keyboard-layout-editor.com/).
 
-I have confirmed that it works with pcbnew version (5.1.0)-1 release build on Windows.
+I have confirmed that it works with following pcbnew versions
+
+- (5.1.0-1) release build on Windows
+- (6.0.5) release build on Windows
+- (6.0.5-0) release build on macOS
 
 ![demo](https://raw.githubusercontent.com/yskoht/keyboard-layouter/images/demo.gif)
 
 ## Install
 
 Download [keyboard_layouter.py](https://github.com/yskoht/keyboard-layouter/blob/master/keyboard_layouter.py) and put it to the following directory:
+
+`Tools` > `External Plugins` > `Reveal Plugin Folder in Finder` (or `Open Plugin Directory` in Windows)
+
+![](https://user-images.githubusercontent.com/34795067/168416745-5556e6a3-199a-4f32-bf00-bdd5998a3e13.png)
+
+### For v5
 
 - Windows: `%APPDATA%/Roaming/kicad/scripting/plugins`
 - macOS: `~/Library/Application Support/kicad/scripting/plugins` or `~/Library/Preferences/kicad/scripting/plugins`
