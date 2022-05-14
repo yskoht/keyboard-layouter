@@ -44,7 +44,6 @@ DEFAULT_PARAMS = {
         'move': False,
         'offset_x_mm': '0',  # -8.6725
         'offset_y_mm': '0',  # 8.59
-        'flip': False,
     },
 }
 
@@ -54,7 +53,7 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
         self.name = 'Keyboard Layouter'
         self.category = 'Modify PCB'
         self.description = 'Move parts to the position specified by json'
-        self.__version__ = '0.1.1'
+        self.__version__ = '0.2.0'
 
     def Run(self):
         self.__gui()
@@ -148,6 +147,15 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
         yd = -math.sin(rad) * (x - x0) + math.cos(rad) * (y - y0)
         return xd + x0, yd + y0
 
+    def __find_module(self, ref):
+        if hasattr(self.board, 'FindModule'):
+            # for v5
+            module = self.board.FindModule(ref)
+        else:
+            # for v6
+            module = self.board.FindFootprintByReference(ref)
+        return module
+
     def __move_parts(self, ref_id, props):
         x, y, w, h = props['x'], props['y'], str(props['w']), str(props['h'])
         r, rx, ry = -props['r'], props['rx'], props['ry']
@@ -160,13 +168,13 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
         x_mm, y_mm = self.__rotate(r, x_mm, y_mm, rx_mm, ry_mm)
 
         if self.params['switch']['move']:
-            sw = self.board.FindModule(self.__sw_ref(ref_id))
+            sw = self.__find_module(self.__sw_ref(ref_id))
             if sw is not None:
                 sw.SetPosition(pcbnew.wxPointMM(x_mm, y_mm))
                 sw.SetOrientationDegrees(r)
 
         if self.params['diode']['move']:
-            diode = self.board.FindModule(self.__diode_ref(ref_id))
+            diode = self.__find_module(self.__diode_ref(ref_id))
             if diode is not None:
                 diode.SetPosition(pcbnew.wxPointMM(x_mm, y_mm))
                 dx_mm, dy_mm = self.__rotate(r,
@@ -174,8 +182,6 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                                              self.params['diode']['offset_y_mm'])
                 diode.Move(pcbnew.wxPointMM(dx_mm, dy_mm))
 
-                if self.params['diode']['move']:
-                    diode.Flip(diode.GetCenter())
                 diode.SetOrientationDegrees(r)
 
     def __gui(self):
@@ -255,20 +261,15 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                     if params['diode']['move']:
                         textctrl_offset_x_mm.Enable()
                         textctrl_offset_y_mm.Enable()
-                        checkbox_flip.Enable()
                     else:
                         textctrl_offset_x_mm.Disable()
                         textctrl_offset_y_mm.Disable()
-                        checkbox_flip.Disable()
 
                 def textctrl_offset_x_mm_handler(_):
                     params['diode']['offset_x_mm'] = textctrl_offset_x_mm.GetValue()
 
                 def textctrl_offset_y_mm_handler(_):
                     params['diode']['offset_y_mm'] = textctrl_offset_y_mm.GetValue()
-
-                def checkbox_flip_handler(_):
-                    params['diode']['flip'] = checkbox_flip.GetValue()
 
                 super(DiodePanel, self).__init__(parent, wx.ID_ANY)
 
@@ -300,15 +301,10 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                 layout_offset_y_mm.Add(textctrl_offset_y_mm, flag=wx.ALIGN_CENTER | wx.LEFT, border=MARGIN_PIX)
                 panel_offset_y_mm.SetSizer(layout_offset_y_mm)
 
-                checkbox_flip = wx.CheckBox(self, wx.ID_ANY, 'Flip')
-                set_initial_checkbox(checkbox_flip, False, params['diode']['move'])
-                checkbox_flip.Bind(wx.EVT_CHECKBOX, checkbox_flip_handler)
-
                 layout = wx.BoxSizer(wx.VERTICAL)
                 layout.Add(checkbox_move)
                 layout.Add(panel_offset_x_mm, flag=wx.LEFT, border=INDENT_PIX)
                 layout.Add(panel_offset_y_mm, flag=wx.LEFT, border=INDENT_PIX)
-                layout.Add(checkbox_flip, flag=wx.LEFT, border=INDENT_PIX)
                 self.SetSizer(layout)
 
         class RunPanel(wx.Panel):
