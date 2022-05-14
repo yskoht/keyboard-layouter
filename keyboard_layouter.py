@@ -44,7 +44,6 @@ DEFAULT_PARAMS = {
         'move': False,
         'offset_x_mm': '0',  # -8.6725
         'offset_y_mm': '0',  # 8.59
-        'flip': False,
     },
 }
 
@@ -183,8 +182,6 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                                              self.params['diode']['offset_y_mm'])
                 diode.Move(pcbnew.wxPointMM(dx_mm, dy_mm))
 
-                if self.params['diode']['move']:
-                    diode.Flip(diode.GetCenter())
                 diode.SetOrientationDegrees(r)
 
     def __gui(self):
@@ -264,20 +261,15 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                     if params['diode']['move']:
                         textctrl_offset_x_mm.Enable()
                         textctrl_offset_y_mm.Enable()
-                        checkbox_flip.Enable()
                     else:
                         textctrl_offset_x_mm.Disable()
                         textctrl_offset_y_mm.Disable()
-                        checkbox_flip.Disable()
 
                 def textctrl_offset_x_mm_handler(_):
                     params['diode']['offset_x_mm'] = textctrl_offset_x_mm.GetValue()
 
                 def textctrl_offset_y_mm_handler(_):
                     params['diode']['offset_y_mm'] = textctrl_offset_y_mm.GetValue()
-
-                def checkbox_flip_handler(_):
-                    params['diode']['flip'] = checkbox_flip.GetValue()
 
                 super(DiodePanel, self).__init__(parent, wx.ID_ANY)
 
@@ -309,15 +301,10 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
                 layout_offset_y_mm.Add(textctrl_offset_y_mm, flag=wx.ALIGN_CENTER | wx.LEFT, border=MARGIN_PIX)
                 panel_offset_y_mm.SetSizer(layout_offset_y_mm)
 
-                checkbox_flip = wx.CheckBox(self, wx.ID_ANY, 'Flip')
-                set_initial_checkbox(checkbox_flip, False, params['diode']['move'])
-                checkbox_flip.Bind(wx.EVT_CHECKBOX, checkbox_flip_handler)
-
                 layout = wx.BoxSizer(wx.VERTICAL)
                 layout.Add(checkbox_move)
                 layout.Add(panel_offset_x_mm, flag=wx.LEFT, border=INDENT_PIX)
                 layout.Add(panel_offset_y_mm, flag=wx.LEFT, border=INDENT_PIX)
-                layout.Add(checkbox_flip, flag=wx.LEFT, border=INDENT_PIX)
                 self.SetSizer(layout)
 
         class RunPanel(wx.Panel):
