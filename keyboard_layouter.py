@@ -170,17 +170,17 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
         if self.params['switch']['move']:
             sw = self.__find_module(self.__sw_ref(ref_id))
             if sw is not None:
-                sw.SetPosition(pcbnew.wxPointMM(x_mm, y_mm))
+                sw.SetPosition(pcbnew.VECTOR2I(pcbnew.wxPointMM(x_mm, y_mm)))
                 sw.SetOrientationDegrees(r)
 
         if self.params['diode']['move']:
             diode = self.__find_module(self.__diode_ref(ref_id))
             if diode is not None:
-                diode.SetPosition(pcbnew.wxPointMM(x_mm, y_mm))
+                diode.SetPosition(pcbnew.VECTOR2I(pcbnew.wxPointMM(x_mm, y_mm)))
                 dx_mm, dy_mm = self.__rotate(r,
                                              self.params['diode']['offset_x_mm'],
                                              self.params['diode']['offset_y_mm'])
-                diode.Move(pcbnew.wxPointMM(dx_mm, dy_mm))
+                diode.Move(pcbnew.VECTOR2I(pcbnew.wxPointMM(dx_mm, dy_mm)))
 
                 diode.SetOrientationDegrees(r)
 
@@ -379,4 +379,3 @@ class KeyboardLayouter(pcbnew.ActionPlugin):
 
 
 KeyboardLayouter().register()
-
