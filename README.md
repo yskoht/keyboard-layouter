@@ -1,4 +1,3 @@
-
 # Keyboard Layouter Plugin
 
 [![MIT License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
@@ -9,9 +8,7 @@ This plugin places switch footprints in the location specified by JSON of
 
 I have confirmed that it works with following pcbnew versions
 
-- (5.1.0-1) release build on Windows
-- (6.0.5) release build on Windows
-- (6.0.5-0) release build on macOS
+- (7.0.10) release build on Windows
 
 ![demo](https://raw.githubusercontent.com/yskoht/keyboard-layouter/images/demo.gif)
 
@@ -22,12 +19,6 @@ Download [keyboard_layouter.py](https://github.com/yskoht/keyboard-layouter/blob
 `Tools` > `External Plugins` > `Reveal Plugin Folder in Finder` (or `Open Plugin Directory` in Windows)
 
 ![](https://user-images.githubusercontent.com/34795067/168416745-5556e6a3-199a-4f32-bf00-bdd5998a3e13.png)
-
-### For v5
-
-- Windows: `%APPDATA%/Roaming/kicad/scripting/plugins`
-- macOS: `~/Library/Application Support/kicad/scripting/plugins` or `~/Library/Preferences/kicad/scripting/plugins`
-- Linux: `~/.kicad/scripting/plugins` or `~/.kicad_plugins`
 
 ## Usage
 
@@ -63,6 +54,22 @@ Supported switch footprints are Cherry MX in [kicad-footprints/Button_Switch_Key
 - 2.75u (2.75 x 1)
 - 6.25u (6.25 x 1)
 - ISO Enter
+
+## For installation on older KiCad (v5, v6)
+
+Please use [Release 0\.2\.0 · yskoht/keyboard\-layouter](https://github.com/yskoht/keyboard-layouter/releases/tag/0.2.0).
+
+I have confirmed that it works with following pcbnew versions
+
+- (5.1.0-1) release build on Windows
+- (6.0.5) release build on Windows
+- (6.0.5-0) release build on macOS
+
+In KiCad v5, put the script in the following path
+
+- Windows: `%APPDATA%/Roaming/kicad/scripting/plugins`
+- macOS: `~/Library/Application Support/kicad/scripting/plugins` or `~/Library/Preferences/kicad/scripting/plugins`
+- Linux: `~/.kicad/scripting/plugins` or `~/.kicad_plugins`
 
 ## License
 
